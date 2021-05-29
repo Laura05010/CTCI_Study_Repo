@@ -49,6 +49,19 @@ class HashTable:
         ## Assign at the end
         curr_node.next = new_node
 
+    #FIND
+    def find(self, key):
+        # 1. Compute the index for the provided key using the hash function.
+        index = self.hash(key)
+        # 2. Go to the bucket for that index. Aka the first node in the list
+        node = self.buckets[index]
+        # 3. Traverse through the linked list until the key is found or the end of the list is reached
+        while node is not None and node.key != key:
+            node = node.next
+        # 4. Return the value of the found node or None
+        if node is None:
+             return None # not found
+        return node.value # found
 
 class Node:
     def __init__(self, key, value):
