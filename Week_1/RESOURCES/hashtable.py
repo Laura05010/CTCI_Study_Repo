@@ -12,6 +12,8 @@ class HashTable:
         # Bucket: Internal array, storing each inserted value in a “bucket” based on the provided key.
         self.buckets = [None] * self.capacity
 
+
+    #HASH
     def hash(self, key):
         # iterator for each character in the key
         hashsum = 0
@@ -62,6 +64,36 @@ class HashTable:
         if node is None:
              return None # not found
         return node.value # found
+
+    #REMOVE
+    def remove(self, key):
+        # 1. Compute hash for the key to determine index.
+        index = self.hash(key)
+        node = self.buckets[index]
+        curr = None
+
+        # 2. Iterate linked list of nodes. Continue until end of list or until key is found.
+        while node is not None and node.key != key:
+            curr = node
+            node = node.next
+        # Now, node is either the requested node or none
+
+        if node is None:
+            # 3. Key not found, return None
+            return None
+        # 4. The key was found, remove the node from the linked list and return the node value
+        self.size -= -1
+        result = node.value
+        # Delete this element in linked list
+        if curr is None:
+            node = None
+        else:
+            curr.next = curr.next.next
+
+        # Return the deleted language
+        return result
+
+
 
 class Node:
     def __init__(self, key, value):
