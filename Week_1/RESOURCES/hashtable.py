@@ -1,7 +1,7 @@
 # HASHTABLE USING CHAINING
 # Is good for problems where a flat "area" isn't enough
 # Ex: you have 10 apartments  and need to allocate 100 people
-INITIAL_CAPACITY = 50
+INITIAL_CAPACITY = 5
 
 class HashTable:
     def __init__(self):
@@ -36,3 +36,8 @@ class Node:
         self.value = value
         self.next = None # the next node
 
+if __name__ == '__main__':
+    HashTable()
+    print(hash("john"))
+    print(hash("mary"))
+    print(hash("george"))
