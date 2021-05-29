@@ -27,6 +27,29 @@ class HashTable:
             hashsum = hashsum % self.capacity
         return hashsum
 
+
+    #INSERT:
+    def insert(self, key, value):
+        # 1. Increment size of hash table.
+        self.size += 1
+        # 2. Compute index of key using hash function.
+        index = self.hash(key)
+        # Go to node corresponding to hash
+        node = self.buckets[index]
+        new_node = Node(key,value)
+        # 3. If the bucket at index is empty, create a new node and add it there.
+        if node is None:
+            self.buckets[index] = new_node
+            return
+        # 4. Otherwise, a collision occurred: there is already a linked list of at least one node at this index. Iterate to the end of the list and add a new node there.
+
+        curr_node = node
+        while curr_node.next is not None:
+            curr_node = curr_node.next ## -> to reach till end of linked list
+        ## Assign at the end
+        curr_node.next = new_node
+
+
 class Node:
     def __init__(self, key, value):
         # [(Laura, 10) -> (Max, 52) ->] [() ->] [() ->] [(Albert,100) ->(Anoushka, 48)->] [() ->] [(Aleeza,12) ->]
