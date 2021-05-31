@@ -93,8 +93,6 @@ class HashTable:
         # Return the deleted language
         return result
 
-
-
 class Node:
     def __init__(self, key, value):
         # [(Laura, 10) -> (Max, 52) ->] [() ->] [() ->] [(Albert,100) ->(Anoushka, 48)->] [() ->] [(Aleeza,12) ->]
@@ -105,7 +103,12 @@ class Node:
         self.next = None # the next node
 
 if __name__ == '__main__':
-    HashTable()
-    print(hash("john"))
-    print(hash("mary"))
-    print(hash("george"))
+    table = HashTable()
+    table.insert("Laura", 10)
+    table.insert("Max", 52)
+    table.insert("Aleeza", 12)
+    table.insert("Anoushka", 48)
+    print(table.find("Laura")) #expected: 10
+    print(table.find("Aleeza")) #expected: 12
+    print(table.find("Anoushka")) #expected: 48
+    print(table.remove("Max")) #expected: 52
