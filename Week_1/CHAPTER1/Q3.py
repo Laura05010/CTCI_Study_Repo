@@ -6,3 +6,11 @@
 # EXAMPLE
 # Input: "Mr John Smith ", 13
 # Output: "Mr%20John%20Smith"
+
+
+# APPROACHES:
+# ---------------------------------------------------------------
+# LAURA:
+# -> Basically use that method where you split on whitespaces… then go through the list and do. 
+# -> for I in list:
+# 	string += list[i] + “%20”
