@@ -6,6 +6,6 @@
 # APPROACHES:
 # ---------------------------------------------------------------
 # Rotation permutations for "waterbottle"
-waterbottle
-ewaterbottl
-lewaterbott
+# waterbottle
+# ewaterbottl
+# lewaterbott
