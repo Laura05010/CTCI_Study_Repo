@@ -1,7 +1,7 @@
 # HASHTABLE USING CHAINING
 # Is good for problems where a flat "area" isn't enough
 # Ex: you have 10 apartments  and need to allocate 100 people
-INITIAL_CAPACITY = 5
+INITIAL_CAPACITY = 10
 
 class HashTable:
     def __init__(self):
@@ -86,12 +86,22 @@ class HashTable:
         result = node.value
         # Delete this element in linked list
         if curr is None:
-            node = None
+            self.buckets[index] = None
         else:
             curr.next = curr.next.next
 
         # Return the deleted language
         return result
+
+    def display_hashtable(self):
+        for i in range(self.capacity):
+            print(i, end = " ")
+            curr = self.buckets[i]
+            while curr is not None :
+                print("-->", end = " ")
+                print("(" +  curr.key + ", " + str(curr.value) + ")", end = " ")
+                curr = curr.next
+            print()
 
 class Node:
     def __init__(self, key, value):
@@ -104,11 +114,13 @@ class Node:
 
 if __name__ == '__main__':
     table = HashTable()
-    table.insert("Laura", 10)
+    table.insert("Laura", 11)
     table.insert("Max", 52)
     table.insert("Aleeza", 12)
     table.insert("Anoushka", 48)
+    table.display_hashtable()
     print(table.find("Laura")) #expected: 10
     print(table.find("Aleeza")) #expected: 12
     print(table.find("Anoushka")) #expected: 48
     print(table.remove("Max")) #expected: 52
+    table.display_hashtable()
