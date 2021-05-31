@@ -7,3 +7,8 @@
 
 # APPROACHES:
 # ---------------------------------------------------------------
+# AS A GROUP:
+# 1. Check if string is odd or even
+# 2. Hashmap of (letter: number)
+# 3. If the word has even number of characters : all letters need to have an even number of (number)
+# 4. If the word has odd number of characters: all letters except one (That one letter has an odd number) have an even number of (number)
