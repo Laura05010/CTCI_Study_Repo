@@ -10,3 +10,6 @@
 
 # APPROACHES:
 # ---------------------------------------------------------------
+# 1. Check the string first! If the end string is 2 or more than first string OR 2 or more than first string THIS IS FALSE ALREADY as there is more than a change
+# 2. Now we are certain string had just one change in terms of length... 
+# 3. Check strings from both sides!
