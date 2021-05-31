@@ -80,18 +80,22 @@ class HashTable:
 
         if node is None:
             # 3. Key not found, return None
-            return None
+            return "Key not found"
         # 4. The key was found, remove the node from the linked list and return the node value
-        self.size -= -1
-        result = node.value
-        # Delete this element in linked list
-        if curr is None:
-            self.buckets[index] = None
         else:
-            curr.next = curr.next.next
+            self.size -= -1
+            result = node.value
+            # Delete this element in linked list
+            if curr is None:
+                if node.next is None:
+                    self.buckets[index] = None
+                else:
+                    self.buckets[index] = node.next
+            else:
+                curr.next = curr.next.next
 
         # Return the deleted language
-        return result
+            return result
 
     def display_hashtable(self):
         for i in range(self.capacity):
@@ -124,3 +128,20 @@ if __name__ == '__main__':
     print(table.find("Anoushka")) #expected: 48
     print(table.remove("Max")) #expected: 52
     table.display_hashtable()
+    print(table.remove("Bob"))
+    table.display_hashtable()
+    #------------------------GeeksForGeeks example---------------------------------------
+    table2 = HashTable()
+    table2.insert('Allahabad', 10)
+    table2.insert('Mumbai', 25)
+    table2.insert('Mathura', 20)
+    table2.insert('Delhi', 9)
+    table2.insert('Punjab', 21)
+    table2.insert('Noida', 21)
+    table2.display_hashtable()
+    table2.remove("Allahabad")
+    table2.display_hashtable()
+    table2.remove("Noida")
+    table2.display_hashtable()
+    table2.remove("Delhi")
+    table2.display_hashtable()
