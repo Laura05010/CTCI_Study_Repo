@@ -11,6 +11,19 @@
 # APPROACHES:
 # ---------------------------------------------------------------
 # LAURA:
-# -> Basically use that method where you split on whitespaces… then go through the list and do. 
+# -> Basically use that method where you split on whitespaces… then go through the list and do.
 # -> for I in list:
 # 	string += list[i] + “%20”
+def URLify(sentence:str) -> str:
+    content = sentence.split()
+    final = ""
+    for i in range(len(content)):
+        if i == len(content) - 1:
+            final += content[i]
+        else:
+            final += content[i] + "20%"
+        i += 1
+    return final
+
+if __name__ == '__main__':
+    print(URLify("I am happy I am good"))
