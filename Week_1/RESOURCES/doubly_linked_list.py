@@ -135,6 +135,39 @@ class LinkedList:
              new_node.next = None
              self._last = new_node
 
+    def pop_front(self):
+        """Removes and returns the first element
+        """
+        if self._first == None:
+            print("List is empty")
+
+        else:
+            temp = self._first # make a temp variable to preserve current first element
+            temp.next.prev = None # make the second element the new head
+            self._first = temp.next # make the new element the first
+            return temp.item # return the value of the removed element
+
+    def pop_back(self):
+        """Removes and returns the last element.
+        """
+        # Case 1: there are no elements in the list (front and last are None)
+        if self._last == None:
+            print("List is empty")
+
+        # Case 2: there is only one element in the list (first == last)
+        elif self._first == self._last:
+            temp = self._last # store the first and last element
+            self._first = None # remove this element (the same as last)
+            self._last = None # remove this element (the same as first)
+            return temp.item # return this value
+
+        # Case 3: a regular DLL with more than one element
+        else:
+            temp = self._last # make a temp variable to preserve last element
+            temp.prev.next = None # remove the second element (changes the pointer)
+            self._last = temp.prev # reassign the last node
+            return temp.item # return the value of the removed element
+
     def insert(self, index: int, item: Any) -> None:
         """Insert a new node containing item at position <index>.
 
@@ -178,36 +211,6 @@ class LinkedList:
                 curr.next = new_node # assigns new node to this node, and next node isnt lost,
                 #We assigned it in the previous line!
 
-    def pop(self, index: int) -> Any:
-        """Remove and return node at position <index>.
-
-        Precondition: index >= 0.
-
-        Raise IndexError if index >= len(self).
-
-        >>> lst = LinkedList([1, 2, 10, 200])
-        >>> lst.pop(2)
-        10
-        >>> lst.pop(0)
-        1
-        """
-        # Warning: the following is pseudo-code, not valid Python code!
-
-        # 1. If the list is empty, you know for sure that index is out of bounds...
-        # 2. Else if index is 0, remove the first node and return its item.
-        # 3. Else iterate to the (index-1)-th node and update links to remove
-        #    the node at position index. But don't forget to return the item!
-
-        curr = self._first
-        current_index = 0
-
-        while curr is not None and current_index < (index - 1) :
-            curr = curr.next
-            current_index += 1
-        if curr is None:    # List is empty: INDEX IS OUT OF BOUNDS!!
-            raise IndexError
-        else:
-            curr.item, curr.next = curr.next.item, curr.next.next
     # FROM THE LAB:
     def __len__(self) -> int:
             """Return the number of elements in this list.
