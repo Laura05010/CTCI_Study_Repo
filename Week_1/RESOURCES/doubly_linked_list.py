@@ -107,7 +107,12 @@ class LinkedList:
         """
         if self._first == None:
             print("List is empty")
-
+        # Case 2: there is only one element in the list (first == last)
+        elif self._first == self._last:
+            temp = self._last # store the first and last element
+            self._first = None # remove this element (the same as last)
+            self._last = None # remove this element (the same as first)
+            return temp.item # return this value
         else:
             temp = self._first # make a temp variable to preserve current first element
             temp.next.prev = None # make the second element the new head
@@ -183,4 +188,36 @@ class LinkedList:
                 temp.next = new_node
 
 if __name__ == "__main__":
-    pass
+    new_linked = LinkedList()
+    new_linked.append(2)
+    new_linked.prepend(9)
+    new_linked.append(15)
+    new_linked.print_items() # 9 -> 2 -> 15
+    print("================================")
+    print("printed: " + str(new_linked.pop_front())) # 9
+    new_linked.print_items()
+    print("================================")
+    print("printed: " + str(new_linked.pop_back())) # 15
+    new_linked.print_items()
+    print("================================")
+    print("printed: " + str(new_linked.pop_front())) # 2
+    new_linked.print_items()
+    print("================================")
+    print("printed: " + str(new_linked.pop_back()))
+    print("================================")
+    new_linked.print_items()
+    new_linked.append(2)
+    new_linked.prepend(9)
+    new_linked.append(15)
+    new_linked.insert_after(new_linked._last, 7)
+    new_linked.print_items() # 9 -> 2 -> 15 -> 7
+    print("================================")
+    new_linked.insert_before(new_linked._first, 11)
+    new_linked.print_items() # 11 -> 9 -> 2 -> 15 -> 7
+    print("================================")
+    new_linked.insert_after(new_linked._first, 13)
+    new_linked.print_items() # 11 -> 13 -> 9 -> 2 -> 15 -> 7
+    print("================================")
+    new_linked.insert_before(new_linked._last, 4)
+    new_linked.print_items() # 11 -> 13 -> 9 -> 2 -> 15 -> 4 -> 7
+
