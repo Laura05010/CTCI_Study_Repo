@@ -4,9 +4,24 @@ from typing import Optional, Any, List
 # that this entire class is private:
 # it shouldn’t be accessed by client code directly,
 # but instead is only used by the “main” class described in the next section.
+
+# --------------------------- WHY DOUBLY LINKED LISTS? --------------------------------------
+# What if you needed a FASTER method to remove the last node in the linked list
+# 10 -> 20 -> 30 -> 40
+# Becomes
+# 10 -> 20 -> 30
+
+# In the normal first linked list we implemented, this is O(n) as we have to traverse it
+# to n-1 node to set this node.next to None
+
+# Now... we still need to find the Second last node
+
+# COOL FIX: have a _previous ATTRIBUTE
+# DOUBLY LINKED LISTS!!! WOOOT WOOT!!!!!
+# --------------------------------------------------------------------------------------------
+
 class _Node:
     """A node in a doubly linked list.
-
     Note that this is considered a "private class", one which is only meant
     to be used in this module by the DoublyLinkedList class, but not by client code.
 
@@ -34,22 +49,14 @@ class LinkedList:
     # === Private Attributes ===
     # The first node in this linked list, or None if this list is empty.
     _first: Optional[_Node]
+    _last: Optional[_Node]
 
     def __init__(self) -> None:
         """Initialize an empty linked list.
         """
         self._first = None
-    # More GENERAL initializer??
-    # def __init__(self, items: list) -> None:
-    #     """Initialize a new linked list containing the given items.
+        self._last = None
 
-    #     The first node in the linked list contains the first item
-    #     in <items>.
-    #     """
-    #     self._first = None
-    #     for item in items:
-    #         self.append(item)
-    # Transversing Linked Lists
     def print_items(self) -> None:
         """Print out each item of the linked_list"""
         curr = self._first
