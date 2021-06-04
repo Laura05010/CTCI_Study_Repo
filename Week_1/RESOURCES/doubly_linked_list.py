@@ -109,29 +109,31 @@ class LinkedList:
 
     # Mutating Linked Lists
     def prepend(self, item: Any) -> None:
-        """ Insert item at beginning of self."""
+        """ Insert item at beginning of self. In other words its our push_front"""
         new_node = _Node(item)
-        # self._first = new_node    # cant do it here other wise you lose the entire list!!!
         new_node.next = self._first
-        self._first = new_node
+        # self._first = new_node    # cant do it here other wise you lose the entire list!!!
+        if self._first != None: #if the linked list is not empty
+            self._first.prev = new_node # the old _first is the new_node's .prev
+            self._first = new_node # change the self._first pointer to the new_node
+        else:
+            self._first = new_node
+            self._last = new_node
+        new_node.prev = None
 
     # RUN TIME APPEND: SLOWWW O(n)
     def append(self, item: Any) -> None:
-        """Add the given item to the end of this linked list."""
-        curr = self._first
-        if curr is None:
-            # add the new node to the list
-            new_node = _Node(item) # Creates new node
-            self._first = new_node # Actually assigns to linked list
-
+        """Add the given item to the end of this linked list. This is our push_back"""
+        new_node = _Node(item)
+        new_node.prev = self._last
+        if self._last == None:
+            self._last = new_node
+            self._first = new_node
+            new_node.next = None
         else:
-            #1. go through the linked list and find last item
-            #2. assign reference to last items.next
-            while curr.next is not None:
-                curr = curr.next
-            # Here we know that curr.next is None
-            new_node = _Node(item)
-            curr.next = new_node
+             self._last.next = new_node
+             new_node.next = None
+             self._last = new_node
 
     def insert(self, index: int, item: Any) -> None:
         """Insert a new node containing item at position <index>.
