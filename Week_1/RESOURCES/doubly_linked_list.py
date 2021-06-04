@@ -168,48 +168,31 @@ class LinkedList:
             self._last = temp.prev # reassign the last node
             return temp.item # return the value of the removed element
 
-    def insert(self, index: int, item: Any) -> None:
-        """Insert a new node containing item at position <index>.
-
-        Precondition: index >= 0.
-
-        Raise IndexError if index > len(self).
-
-        Note: if index == len(self), this method adds the item to the end
-        of the linked list, which is the same as LinkedList.append.
-
-        >>> lst = LinkedList([1, 2, 10, 200])
-        >>> lst.insert(2, 300)
-        >>> str(lst)
-        '[1 -> 2 -> 300 -> 10 -> 200]'
-        >>> lst.insert(5, -1)
-        >>> str(lst)
-        '[1 -> 2 -> 300 -> 10 -> 200 -> -1]'
+    def insert_after(self, node, item) -> None:
+        """Given a node in the Linked List, we will insert a node after it.
         """
-        if index == 0:
-            new_node = _Node(item)
-            self._first, new_node.next = new_node, self._first
-            # Multiple assignment is good for complex state updating
+        # Case 1: Empty node
+        if node == None:
+            print("The given node is empty, so another node can't go after it")
+        # Case 2: Node is not empty
         else:
-            curr = self._first
-            current_index = 0
-            # if we want the node to be inserted into position index,
-            # we need to access the node at position (index-1)
-            while curr is not None and current_index < index - 1:
-                curr = curr.next
-                current_index += 1
+            # case 1: the last node in Linked list is empty
+            new_node = _Node(item)
+            if node == self._last:
+                node.next = new_node # The current node we are on needs to point to new node
+                new_node.prev = node # The next node needs to point to current node as its preveious
+                self._last = new_node # Reassign self.last
 
-            # assert curr is None or curr_index == index - 1
-            if curr is None:
-                # This list doesn't have a node at the given
-                # position so index error must be raised
-                raise IndexError
-            else: # curr_index == index - 1
-                # index - 1 is in bounds. Insert the new item.
-                new_node = _Node(item)
-                new_node.next = curr.next   # Saves the reference and assigns it to the new node
-                curr.next = new_node # assigns new node to this node, and next node isnt lost,
-                #We assigned it in the previous line!
+            # case 2: the node we are on is in the linked
+            else:
+                temp = node.next # Let's put the original next node somewhere for now..
+                node.next = new_node # curent node needs to point to new node
+                new_node.prev = node # new node has to point back to current node
+                # Now we can connect temp node back!
+                new_node.next = temp # new node need to point to the temp node
+                temp.prev = new_node # the temp node need to point back to the new node
+
+
 
     # FROM THE LAB:
     def __len__(self) -> int:
