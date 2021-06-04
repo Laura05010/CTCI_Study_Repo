@@ -74,39 +74,6 @@ class LinkedList:
             curr = curr.next
         return lst_version
 
-    def __eq__(self, other: LinkedList) -> bool:
-        """Return whether this list and the other list are equal.
-        Two lists are equal when each one has the same number of items,
-        and each corresponding pair of items are equal (using == to compare).
-        """
-        curr1 = self._first
-        curr2 = other._first
-        # THE WHILE LOO CONDITION SHOULD
-        # ALWAYS BE THE NEGATION OF THE STOPPING CONDITION
-        # while not(curr1 is None or curr2 is None)
-        # USE DE MORGAN'S LAW
-        while curr1 is not None and curr2 is not None:
-            if curr1.item != curr2.item:    # checks if items are the same
-                return False
-            curr1 = curr1.next
-            curr2 = curr2.next
-
-        return curr1 is None and curr2 is None  # if thelinked lists are the same!
-
-    def __getitem__(self, index: int) -> Any:
-        """Return the item at position <index> in this list.
-        Raise an IndexError if the <index> is out of bounds.
-        Precondition: index >= 0.
-        """
-        curr = self._first
-        where = 0
-        while curr is not None and where < index:
-            curr = curr.next
-            where += 1
-        if curr is not None: # where = index, so just return item
-            return curr.item
-        raise IndexError # we reached end of LinkedList and index is out of bounds!!!
-
     # Mutating Linked Lists
     def prepend(self, item: Any) -> None:
         """ Insert item at beginning of self. In other words its our push_front"""
@@ -192,116 +159,28 @@ class LinkedList:
                 new_node.next = temp # new node need to point to the temp node
                 temp.prev = new_node # the temp node need to point back to the new node
 
-
-
-    # FROM THE LAB:
-    def __len__(self) -> int:
-            """Return the number of elements in this list.
-
-            >>> lst = LinkedList([])
-            >>> len(lst)              # Equivalent to lst.__len__()
-            0
-            >>> lst = LinkedList([1, 2, 3])
-            >>> len(lst)
-            3
-            """
-            length = 0
-            curr = self._first
-            while curr is not None:
-                length += 1
-                curr = curr.next
-            return length
-
-    def count(self, item: Any) -> int:
-        """Return the number of times <item> occurs in this list.
-
-        Use == to compare items.
-
-        >>> lst = LinkedList([1, 2, 1, 3, 2, 1])
-        >>> lst.count(1)
-        3
-        >>> lst.count(2)
-        2
-        >>> lst.count(3)
-        1
+    def insert_before(self, node, item) -> None:
+        """Given a node in the Linked List, we will insert a node before it.
         """
-        n_item = 0
-        curr = self._first
-        while curr is not None:
-            if curr.item == item:
-                n_item += 1
-            curr = curr.next
-        return n_item
-
-    def index(self, item: Any) -> int:
-        """Return the index of the first occurrence of <item> in this list.
-
-        Raise ValueError if the <item> is not present.
-
-        Use == to compare items.
-
-        >>> lst = LinkedList([1, 2, 1, 3, 2, 1])
-        >>> lst.index(1)
-        0
-        >>> lst.index(3)
-        3
-        >>> lst.index(148)
-        Traceback (most recent call last):
-        ValueError
-        """
-        curr_i = 0
-        curr = self._first
-        while curr is not None:
-            if curr.item == item:
-                return curr_i
-            curr_i += 1
-            curr = curr.next
-        # we finished and nothing returned so raise Value error
-        raise ValueError
-
-    def __setitem__(self, index: int, item: Any) -> None:
-        """Store item at position <index> in this list.
-
-        Raise IndexError if index >= len(self).
-
-        >>> lst = LinkedList([1, 2, 3])
-        >>> lst[0] = 100  # Equivalent to lst.__setitem__(0, 100)
-        >>> lst[1] = 200
-        >>> lst[2] = 300
-        >>> str(lst)
-        '[100 -> 200 -> 300]'
-        """
-        if index >= len(self):
-            raise IndexError
+        # Case 1: Empty node
+        if node == None:
+            print("The given node is empty, so another node can't go before it")
+        # Case 2: Node is not empty
         else:
-            curr = self._first
-            index_val = 0
-            while curr is not None:
-                if index_val == index:
-                    curr.item = item
-                index_val += 1
-                curr = curr.next
-    #THE QUIZ CODE
-    def insert_after(self , marker : Any , item : Any) -> None :
-        """ Insert <item> after the first time <marker > occurs in this linked list .
-        Precondition : <marker > is in this linked list .
-        >>> lst = LinkedList([1 , 3 , 2 , 6])
-        >>> lst.insert_after(3 , 4)
-        >>> str(lst)
-        '[1 -> 3 -> 4 -> 2 -> 6]'
-        """
-        curr = self._first
-        while curr.item != marker :
-            curr = curr.next
-        insert = _Node(item)
-        # curr.next = insert
-        # problem: we lose the reference to the rest of the items
-        # fix:
-        #curr.next, insert.next = insert, curr.next
-        # BASICALLY MULTIPLE ASSIGNMENT IS YOUR BFF!
-        # The other way...
-        insert.next = curr.next
-        curr.next = insert
+            new_node = _Node(item)
+            # case 1: the first node in Linked list is empty
+            if node == self._first:
+                node.prev = new_node
+                new_node.next = node
+                self._first = new_node
+
+            # case 2: the node we are on is in the linked list
+            else:
+                temp = node.prev
+                node.prev = new_node
+                new_node.next = node
+                new_node.prev = temp
+                temp.next = new_node
 
 if __name__ == "__main__":
     pass
