@@ -21,6 +21,7 @@ def is_permutation(string1:str, string2:str) -> bool:
     return False
 
 
-# def get_permutations(string2:str) -> List:
+def get_permutations(string2:str) -> List:
+    pass 
 
 
