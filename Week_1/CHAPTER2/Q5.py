@@ -17,6 +17,8 @@ from typing import Optional, Any, List
 # that this entire class is private:
 # it shouldn’t be accessed by client code directly,
 # but instead is only used by the “main” class described in the next section.
+
+
 class _Node:
     """A node in a linked list.
 
@@ -30,13 +32,14 @@ class _Node:
         The next node in the list, or None if there are no more nodes.
     """
     item: Any
-    #next: Optional[_Node]
+    # next: Optional[_Node]
 
     def __init__(self, item: Any) -> None:
         """Initialize a new node storing <item>, with no next node.
         """
         self.item = item  # Basically each node hold the item and a reference to the next item!!!
         self.next = None  # Initially pointing to nothing
+
 
 class LinkedList:
     """A linked list implementation of the List ADT.
@@ -72,17 +75,18 @@ class LinkedList:
         curr = self._first
         if curr is None:
             # add the new node to the list
-            new_node = _Node(item) # Creates new node
-            self._first = new_node # Actually assigns to linked list
+            new_node = _Node(item)  # Creates new node
+            self._first = new_node  # Actually assigns to linked list
 
         else:
-            #1. go through the linked list and find last item
-            #2. assign reference to last items.next
+            # 1. go through the linked list and find last item
+            # 2. assign reference to last items.next
             while curr.next is not None:
                 curr = curr.next
             # Here we know that curr.next is None
             new_node = _Node(item)
             curr.next = new_node
+
 
 def sum_lists(linked_list_1: LinkedList, linked_list_2: LinkedList) -> LinkedList:
     """Returns a linked list representation of the sum of the two linked lists values as a n-digit number, where n is the number of nodes.
@@ -91,6 +95,7 @@ def sum_lists(linked_list_1: LinkedList, linked_list_2: LinkedList) -> LinkedLis
     curr_one = linked_list_1._first
     curr_two = linked_list_2._first
     final_result = LinkedList()
+
     while curr_one is not None or curr_two is not None:
         if carry_over == 1:
             sum_digit = 1
@@ -108,12 +113,26 @@ def sum_lists(linked_list_1: LinkedList, linked_list_2: LinkedList) -> LinkedLis
     while final_curr is not None:
         final_curr = final_curr.next
 
-    if curr_one is not None:
-        final_curr.next = curr_one
-    elif curr_two is not None:
-        final_curr.next = curr_two
-
-    return final_result
+    if carry_over == 0:
+        if curr_one is not None:
+            final_curr.next = curr_one
+        elif curr_two is not None:
+            final_curr.next = curr_two
+        return final_result
+    else:
+        while carry_over == 1:
+            if curr_one.next is not None:
+                curr_one.next.value += 1
+            elif curr_one.next is None:
+                curr_one.append(1)
+            elif curr_two.next is not None:
+                curr_two.next.value += 1
+            elif curr_two.next is None:
+                curr_two.append(1)
+        return final_result
+# 9 -> 9 -> 9 -> 9
+# 9 -> 9 -> 9 -> 9
+# 0 -> 1 -> 1 -> 0 -> 1 ->-> 9 -> -> 9.......
 
 # 999 + 999 = 1998. 8 -> 9 -> 9 -> 1
 # 9916 + 109 = 10025, 5 -> 2 -> 0 -> 0 -> 1
